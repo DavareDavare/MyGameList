@@ -18,22 +18,21 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
+        <!-- Rechts Oben -->
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label HorizontalAlignment="Center" FontSize="20">Methoden:</Label>
             <StackPanel Margin="5">
                 <Button HorizontalAlignment="Center" x:Name="btnPOST" Content="POST Game" Width="400" Height="40" Margin="5" Click="btnPOST_Click"/>
-                <Button HorizontalAlignment="Center" x:Name="btnPUT" Content="PUT Game" Width="400" Height="40" Margin="5"/>
-                <Button HorizontalAlignment="Center" x:Name="btnGETID" Content="GET Game by ID" Width="400" Height="40" Margin="5"/>
-                <Button HorizontalAlignment="Center" x:Name="btnGETALL" Content="GET All Games" Width="400" Height="40" Margin="5"/>
-                <Button HorizontalAlignment="Center" x:Name="btnDELETEID" Content="DELETE Game by ID" Width="400" Height="40" Margin="5"/>
-                <Button HorizontalAlignment="Center" x:Name="btnDELETEALL" Content="DELETE All Games" Width="400" Height="40" Margin="5"/>
-                
+                <Button HorizontalAlignment="Center" x:Name="btnPUT" Content="PUT Game" Width="400" Height="40" Margin="5" Click="btnPUT_Click"/>
+                <Button HorizontalAlignment="Center" x:Name="btnGETID" Content="GET Game by ID" Width="400" Height="40" Margin="5" Click="btnGETID_Click"/>
+                <Button HorizontalAlignment="Center" x:Name="btnGETALL" Content="GET All Games" Width="400" Height="40" Margin="5" Click="btnGETALL_Click"/>
+                <Button HorizontalAlignment="Center" x:Name="btnDELETEID" Content="DELETE Game by ID" Width="400" Height="40" Margin="5" Click="btnDELETEID_Click"/>
+                <Button HorizontalAlignment="Center" x:Name="btnDELETEALL" Content="DELETE All Games" Width="400" Height="40" Margin="5" Click="btnDELETEALL_Click"/>
+
             </StackPanel>
-        </StackPanel>    
-       
-        
-        <StackPanel x:Name="gameadd" HorizontalAlignment="Center">
+        </StackPanel>
+        <!-- Add Game + Put Game -->
+        <StackPanel x:Name="gameadd" HorizontalAlignment="Center" Visibility="Visible">
             <StackPanel Orientation="Horizontal" Height="40">
                 <Label Margin="3" VerticalContentAlignment="Center">Gamename:</Label>
                 <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtGamename"></TextBox>
@@ -62,31 +61,34 @@
                 <Label Margin="3" VerticalContentAlignment="Center">Image Link:‎ ‎</Label>
                 <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtLink"></TextBox>
             </StackPanel>
-            <Button x:Name="btnAdd" Content="Add Game" Click="btnAdd_Click" Margin="0,10,0,0" Height="50"/>
+            <Button x:Name="btnAdd" Content="Add Game" Click="btnAdd_Click" Margin="0,10,0,0" Height="50" Visibility="Visible"/>
+            <Button x:Name="btnPutGame" Content="PUT Game" Margin="0,-50,0,0" Height="50" Visibility="Hidden" Click="btnPutGame_Click"/>
         </StackPanel>
-        
-        <StackPanel x:Name="gameput" >
-        
+        <!-- Get All + Delete All -->
+        <StackPanel x:Name="gameall" Visibility="Hidden" Grid.Row="0" Grid.Column="0">
+            <StackPanel>
+                <Button x:Name="btnGetAllGames" Content="GET All Games" Margin="0,175,0,0" Height="50" Width="500" Visibility="Hidden" Click="btnGetAllGames_Click"/>
+                <Button x:Name="btnDeleteAllGames" Content="DELETE All Games" Margin="0,-50,0,0" Height="50" Width="500" Visibility="Hidden" Click="btnDeleteAllGames_Click"/>
+            </StackPanel>
         </StackPanel>
-
+        <!-- Get Game by ID + Delete Game by ID-->
+        <StackPanel x:Name="gamebyid" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Label Margin="0,160,0,0" VerticalContentAlignment="Center" FontSize="30">ID:‎ ‎ ‎</Label>
+                <TextBox VerticalContentAlignment="Center" Margin="0,160,0,0" Height="50" Width="300" x:Name="txtID"></TextBox>
+            </StackPanel>
+            <Button x:Name="btnGetGameById" Margin="0,20,0,0" Content="GET Game by ID" Height="50" Width="500" Visibility="Hidden" Click="btnGetGameById_Click"/>
+            <Button x:Name="btnDeleteGameById" Margin="0,-50,0,0" Content="DELETE Game by ID" Height="50" Width="500" Visibility="Hidden" Click="btnDeleteGameById_Click"/>
+        </StackPanel>
+        <!-- Response -->
         <StackPanel Grid.Row="1" Grid.Column="0" Height="500" Margin="0,0,0,10">
             <Label>Response:</Label>
             <StackPanel Height="300">
                 <ListBox Grid.Row="1" x:Name="lstResponse" Height="250"/>
             </StackPanel>
         </StackPanel>
+
+
         
-        <StackPanel Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
-            <StackPanel Margin="0,0,0,0" Width="384" RenderTransformOrigin="0.5,0.5" >
-                <StackPanel.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleY="0.231"/>
-                        <RotateTransform/>
-                        <TranslateTransform Y="0.996"/>
-                    </TransformGroup>
-                </StackPanel.RenderTransform>
-            </StackPanel>
-        </StackPanel>
     </Grid>
 </Window>

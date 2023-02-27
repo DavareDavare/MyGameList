@@ -45,15 +45,89 @@ namespace Client
             var response = await client.PostAsync("http://localhost:5000/add", new StringContent(jsonstring, Encoding.UTF8, "application/json"));
             lstResponse.Items.Add(response.Content);
         }
-
-        private void lstNames_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnPutGame_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void btnGetAllGames_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void btnGetGameById_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteAllGames_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDeleteGameById_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDELETEID_Click(object sender, RoutedEventArgs e)
+        {
+            this.gamebyid.Visibility = Visibility.Hidden;
+            this.gameall.Visibility = Visibility.Hidden;
+            this.gameadd.Visibility = Visibility.Hidden;
+
+            this.gamebyid.Visibility = Visibility.Visible;
+            this.btnDeleteGameById.Visibility = Visibility.Visible;
+        }
+
+        private void btnDELETEALL_Click(object sender, RoutedEventArgs e)
+        {
+            this.btnGetAllGames.Visibility = Visibility.Hidden;
+            this.gamebyid.Visibility = Visibility.Hidden;
+            this.gameadd.Visibility = Visibility.Hidden;
+
+            this.gameall.Visibility = Visibility.Visible;
+            this.btnDeleteAllGames.Visibility = Visibility.Visible;
+        }
+
         private void btnPOST_Click(object sender, RoutedEventArgs e)
         {
+            this.btnPutGame.Visibility = Visibility.Hidden;
+            this.gameall.Visibility = Visibility.Hidden;
+            this.gamebyid.Visibility = Visibility.Hidden;
+
             this.gameadd.Visibility = Visibility.Visible;
+            this.btnAdd.Visibility = Visibility.Visible;
+        }
+
+        private void btnPUT_Click(object sender, RoutedEventArgs e)
+        {
+            this.btnAdd.Visibility = Visibility.Hidden;
+            this.gameall.Visibility = Visibility.Hidden;
+            this.gamebyid.Visibility = Visibility.Hidden;
+
+            this.gameadd.Visibility = Visibility.Visible;
+            this.btnPutGame.Visibility = Visibility.Visible;
+
+        }
+
+        private void btnGETID_Click(object sender, RoutedEventArgs e)
+        {
+            this.btnDeleteGameById.Visibility = Visibility.Hidden;
+            this.gameall.Visibility = Visibility.Hidden;
+            this.gameadd.Visibility = Visibility.Hidden;
+
+            this.gamebyid.Visibility = Visibility.Visible;
+            this.btnGetGameById.Visibility = Visibility.Visible;
+        }
+
+        private void btnGETALL_Click(object sender, RoutedEventArgs e)
+        {
+            this.btnDeleteAllGames.Visibility = Visibility.Hidden;
+            this.gamebyid.Visibility = Visibility.Hidden;
+            this.gameadd.Visibility = Visibility.Hidden;
+
+            this.gameall.Visibility = Visibility.Visible;
+            this.btnGetAllGames.Visibility = Visibility.Visible;
         }
     }
 }

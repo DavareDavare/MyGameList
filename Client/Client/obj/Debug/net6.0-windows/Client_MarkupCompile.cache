@@ -5,15 +5,15 @@ winexe
 C#
 .cs
 C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\obj\Debug\net6.0-windows\
-Client_jfrfrhv0_wpftmp
+Client
 none
 false
-TRACE;RELEASE;NET;NET6_0;NETCOREAPP
+TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\App.xaml
 11407045341
 
-6-1298389321
-390-673229156
+4-796868094
+1952113599238
 MainWindow.xaml;
 
 False
