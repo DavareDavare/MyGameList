@@ -31,6 +31,7 @@ namespace Client
 
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            lstResponse.Items.Clear();
             string gamename = txtGamename.Text;
             string developer = txtDeveloper.Text;
             string publisher = txtPublisher.Text;
@@ -43,16 +44,28 @@ namespace Client
             string jsonstring = Newtonsoft.Json.JsonConvert.SerializeObject(game);
 
             var response = await client.PostAsync("http://localhost:5000/add", new StringContent(jsonstring, Encoding.UTF8, "application/json"));
-            lstResponse.Items.Add(response.Content);
+            lstResponse.Items.Add(response.Content.ReadAsStringAsync().Result);
         }
         private void btnPutGame_Click(object sender, RoutedEventArgs e)
         {
-
+            string gamename = txtGamename.Text;
+            string developer = txtDeveloper.Text;
+            string publisher = txtPublisher.Text;
+            string console = txtConsole.Text;
+            string description = txtDescription.Text;
+            int pegi = Convert.ToInt32(txtPegi.Text);
+            string imagelink = txtLink.Text;
         }
 
-        private void btnGetAllGames_Click(object sender, RoutedEventArgs e)
+        private async void btnGetAllGames_Click(object sender, RoutedEventArgs e)
         {
-
+            lstResponse.Items.Clear();
+            var responseString = await client.GetStringAsync("http://localhost:5000/getall");
+            string[] split = responseString.Split("},{");
+            foreach( var item in split )
+            {
+                lstResponse.Items.Add(item);
+            }
         }
         private void btnGetGameById_Click(object sender, RoutedEventArgs e)
         {
