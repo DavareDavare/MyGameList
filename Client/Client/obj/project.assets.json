@@ -60,11 +60,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DerAn\\source\\repos\\Client\\Client\\Client.csproj",
+      "projectUniqueName": "C:\\Users\\DerAn\\Documents\\GitHub\\MyGameList\\Client\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "C:\\Users\\DerAn\\source\\repos\\Client\\Client\\Client.csproj",
+      "projectPath": "C:\\Users\\DerAn\\Documents\\GitHub\\MyGameList\\Client\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\DerAn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DerAn\\source\\repos\\Client\\Client\\obj\\",
+      "outputPath": "C:\\Users\\DerAn\\Documents\\GitHub\\MyGameList\\Client\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DerAn\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -117,7 +117,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -35,6 +35,6 @@ module.exports = Game;
     "console": " ",
     "description": " ",
     "pegi": 18,
-    "imagelink": " ",
+    "imagelink": " "
 }
 */

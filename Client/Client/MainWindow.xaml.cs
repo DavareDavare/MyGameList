@@ -43,13 +43,17 @@ namespace Client
             string jsonstring = Newtonsoft.Json.JsonConvert.SerializeObject(game);
 
             var response = await client.PostAsync("http://localhost:5000/add", new StringContent(jsonstring, Encoding.UTF8, "application/json"));
-
-            lstResponse.Items.Add(response);
+            lstResponse.Items.Add(response.Content);
         }
 
         private void lstNames_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void btnPOST_Click(object sender, RoutedEventArgs e)
+        {
+            this.gameadd.Visibility = Visibility.Visible;
         }
     }
 }
