@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Security.Policy;
+using System.Diagnostics;
+
 
 namespace Client
 {
@@ -22,6 +25,7 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        //HttpCient -> Global gemacht da jede Funktion diesen benötigt
         private static readonly HttpClient client = new HttpClient();
 
         public MainWindow()
@@ -29,6 +33,7 @@ namespace Client
             InitializeComponent();
         }
 
+        //Fügt Spiele der Datenbank hinzu
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             lstResponse.Items.Clear();
@@ -46,47 +51,175 @@ namespace Client
             var response = await client.PostAsync("http://localhost:5000/add", new StringContent(jsonstring, Encoding.UTF8, "application/json"));
             lstResponse.Items.Add(response.Content.ReadAsStringAsync().Result);
         }
-        private void btnPutGame_Click(object sender, RoutedEventArgs e)
+
+        //Updated Spiele in der Datenbank
+        private async void btnPutGame_Click(object sender, RoutedEventArgs e)
         {
-            string gamename = txtGamename.Text;
-            string developer = txtDeveloper.Text;
-            string publisher = txtPublisher.Text;
-            string console = txtConsole.Text;
-            string description = txtDescription.Text;
-            int pegi = Convert.ToInt32(txtPegi.Text);
-            string imagelink = txtLink.Text;
+            lstResponse.Items.Clear();
+            int id;
+            Trace.WriteLine(txtIdPut.Text.Length);
+            if (txtIdPut.Text.Length != 0)
+            {
+                id = Convert.ToInt32(txtIdPut.Text);
+                string json = "{";
+                if (txtGamenamePut.Text.Length != 0)
+                {
+                    string gamename = txtGamenamePut.Text;
+                    json += "\"gamename\": \"" + gamename + "\",";
+                }
+                if (txtDeveloperPut.Text.Length != 0)
+                {
+                    string developer = txtDeveloperPut.Text;
+                    json += "\"developer\": \"" + developer + "\",";
+                }
+                if (txtPublisherPut.Text.Length != 0)
+                {
+                    string publisher = txtPublisherPut.Text;
+                    json += "\"publisher\": \"" + publisher + "\",";
+                }
+                if (txtConsolePut.Text.Length != 0)
+                {
+                    string console = txtConsolePut.Text;
+                    json += "\"console\": \"" + console + "\",";
+                }
+                if (txtDescriptionPut.Text.Length != 0)
+                {
+                    string description = txtDescriptionPut.Text;
+                    json += "\"description\": \"" + description + "\",";
+                }
+                if (txtPegiPut.Text.Length != 0)
+                {
+                    Trace.WriteLine("Cancer");
+                    int pegi = Convert.ToInt32(txtPegiPut.Text);
+                    Trace.WriteLine(pegi);
+                    json += "\"pegi\": " + pegi + ",";
+                }
+                if (txtLinkPut.Text.Length != 0)
+                {
+                    string imagelink = txtLinkPut.Text;
+                    json += "\"imagelink\": \"" + imagelink + "\",";
+                }
+                json = json.Remove(json.Length - 1);
+                json += "}";
+                Trace.WriteLine(json);
+
+                var requestUri = new Uri("http://localhost:5000/update/" + id);
+                var method = HttpMethod.Put;
+
+                using var httpRequestMessage = new HttpRequestMessage(method, requestUri);
+
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                httpRequestMessage.Content = content;
+                using var response = await client.SendAsync(httpRequestMessage);
+
+                // Read the response content as a string
+                var responseContent = await response.Content.ReadAsStringAsync();
+                lstResponse.Items.Add(responseContent);
+            }
+            else
+            {
+                lstResponse.Items.Add("ID needed");
+            }
         }
 
+        //Holt alle Spiele der DB
         private async void btnGetAllGames_Click(object sender, RoutedEventArgs e)
         {
             lstResponse.Items.Clear();
             var responseString = await client.GetStringAsync("http://localhost:5000/getall");
-            string[] split = responseString.Split("},{");
-            foreach( var item in split )
+            if(responseString == "[]")
             {
-                lstResponse.Items.Add(item);
+                lstResponse.Items.Add(responseString);
+            }
+            else
+            {
+                string[] split = responseString.Split("},{");
+                if(split.Length == 1)
+                {
+                    lstResponse.Items.Add("[");
+                    string input = split[0];
+                    input = input.Replace("[", "");
+                    input = input.Replace("]", "");
+                    lstResponse.Items.Add(input);
+                    lstResponse.Items.Add("]");
+                }
+                else
+                {
+                foreach (var item in split)
+                {
+                    string input = "";
+                    
+                    if (item == split[0])
+                    {
+                        lstResponse.Items.Add("[");
+                        input = item;
+                        input = input.Replace("[", "");
+                        input = input + '}';
+                    }
+                    else if (item == split[split.Length - 1])
+                    {
+
+                        input = item;
+                        input = input.Replace("]", "");
+                        input = '{' + input;
+
+                    }
+                    else
+                    {
+                        input = '{' + item + '}';
+                    }
+
+
+                    lstResponse.Items.Add(input);
+                    if (item == split[split.Length - 1])
+                    {
+                        lstResponse.Items.Add("]");
+                    }
+                }
+                }
             }
         }
-        private void btnGetGameById_Click(object sender, RoutedEventArgs e)
-        {
 
+        //Holt Spiel über die ID
+        private async void btnGetGameById_Click(object sender, RoutedEventArgs e)
+        {
+            lstResponse.Items.Clear();
+            string id = txtID.Text;
+
+            var responseString = await client.GetStringAsync("http://localhost:5000/get/" + id);
+            lstResponse.Items.Add(responseString);
         }
 
-        private void btnDeleteAllGames_Click(object sender, RoutedEventArgs e)
+        //Löscht alle Spiele in der DB
+        private async void btnDeleteAllGames_Click(object sender, RoutedEventArgs e)
         {
-
+            lstResponse.Items.Clear();
+            string url = "http://localhost:5000/deleteall";
+            HttpResponseMessage response = await client.DeleteAsync(url);
+            lstResponse.Items.Add(response.Content.ReadAsStringAsync().Result);
+            
         }
 
-        private void btnDeleteGameById_Click(object sender, RoutedEventArgs e)
+        // Löscht Spiel über die ID
+        private async void btnDeleteGameById_Click(object sender, RoutedEventArgs e)
         {
-
+            lstResponse.Items.Clear();
+            string id = txtID.Text;
+            string url = "http://localhost:5000/delete/" + id;
+            HttpResponseMessage response = await client.DeleteAsync(url);
+            lstResponse.Items.Add(response.Content.ReadAsStringAsync().Result);
         }
 
+
+
+
+        //----------------Buttons Rechts-------------------
         private void btnDELETEID_Click(object sender, RoutedEventArgs e)
         {
             this.gamebyid.Visibility = Visibility.Hidden;
             this.gameall.Visibility = Visibility.Hidden;
             this.gameadd.Visibility = Visibility.Hidden;
+            this.gameput.Visibility = Visibility.Hidden;
 
             this.gamebyid.Visibility = Visibility.Visible;
             this.btnDeleteGameById.Visibility = Visibility.Visible;
@@ -97,6 +230,7 @@ namespace Client
             this.btnGetAllGames.Visibility = Visibility.Hidden;
             this.gamebyid.Visibility = Visibility.Hidden;
             this.gameadd.Visibility = Visibility.Hidden;
+            this.gameput.Visibility = Visibility.Hidden;
 
             this.gameall.Visibility = Visibility.Visible;
             this.btnDeleteAllGames.Visibility = Visibility.Visible;
@@ -104,22 +238,20 @@ namespace Client
 
         private void btnPOST_Click(object sender, RoutedEventArgs e)
         {
-            this.btnPutGame.Visibility = Visibility.Hidden;
             this.gameall.Visibility = Visibility.Hidden;
             this.gamebyid.Visibility = Visibility.Hidden;
+            this.gameput.Visibility = Visibility.Hidden;
 
             this.gameadd.Visibility = Visibility.Visible;
-            this.btnAdd.Visibility = Visibility.Visible;
         }
 
         private void btnPUT_Click(object sender, RoutedEventArgs e)
         {
-            this.btnAdd.Visibility = Visibility.Hidden;
+            this.gameadd.Visibility = Visibility.Hidden;
             this.gameall.Visibility = Visibility.Hidden;
             this.gamebyid.Visibility = Visibility.Hidden;
 
-            this.gameadd.Visibility = Visibility.Visible;
-            this.btnPutGame.Visibility = Visibility.Visible;
+            this.gameput.Visibility = Visibility.Visible;
 
         }
 
@@ -128,6 +260,7 @@ namespace Client
             this.btnDeleteGameById.Visibility = Visibility.Hidden;
             this.gameall.Visibility = Visibility.Hidden;
             this.gameadd.Visibility = Visibility.Hidden;
+            this.gameput.Visibility = Visibility.Hidden;
 
             this.gamebyid.Visibility = Visibility.Visible;
             this.btnGetGameById.Visibility = Visibility.Visible;
@@ -138,6 +271,7 @@ namespace Client
             this.btnDeleteAllGames.Visibility = Visibility.Hidden;
             this.gamebyid.Visibility = Visibility.Hidden;
             this.gameadd.Visibility = Visibility.Hidden;
+            this.gameput.Visibility = Visibility.Hidden;
 
             this.gameall.Visibility = Visibility.Visible;
             this.btnGetAllGames.Visibility = Visibility.Visible;
