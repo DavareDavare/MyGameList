@@ -31,8 +31,8 @@ app.get('/get/:id', async (req, res) => {
     }
 
     // Wenn es die ID gibt
-    res.status(document);
-
+    res.send(document);
+    
   } catch (error) {
     res.status("Couldnt Get");
   }
