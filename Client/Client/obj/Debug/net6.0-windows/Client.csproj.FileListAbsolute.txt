@@ -44,3 +44,4 @@ C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\obj\Debug\net6.0-window
 C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\obj\Debug\net6.0-windows\Client.pdb
 C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\obj\Debug\net6.0-windows\Client.genruntimeconfig.cache
 C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\obj\Debug\net6.0-windows\ref\Client.dll
+C:\Users\DerAn\Documents\GitHub\MyGameList\Client\Client\obj\Debug\net6.0-windows\Client_Content.g.cs
