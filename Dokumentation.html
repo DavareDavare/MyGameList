@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>MyGameList</title>
+        <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="mygamelist">MyGameList</h1>
+<h2 id="videospiel-datenbank-mit-rest-api">Videospiel Datenbank mit Rest-API</h2>
+<h2 id="wpf-client-um-einträge-der-datenbank-hinzuzufügen">WPF Client um Einträge der Datenbank hinzuzufügen</h2>
+<h2 id="webapplikation-um-datenbank-einträge-zu-einer-persönlichen-liste-hinzuzufügen-und-diese-für-den-user-zu-speichern">Webapplikation um Datenbank Einträge zu einer persönlichen Liste hinzuzufügen und diese für den User zu speichern</h2>
+<hr>
+<h2 id="api">API</h2>
+<p>Die API soll folgende Requests verarbeiten können:</p>
+<ul>
+<li>Get</li>
+<li>Post</li>
+<li>Put</li>
+<li>Delete</li>
+</ul>
+<p>Für meine API habe ich mich für eine Node bzw. JavaScript API entschieden mit den Modulen &quot;express&quot;, &quot;mongoose&quot; und &quot;body-parser&quot;. Es wird ebenfalls eine weitere Javascript Datei importiert, nämlich &quot;routes.js&quot;. In dieser Datei werden die verschiedenen Routen der API festgelegt.</p>
+<p>Ich habe mich dafür entschieden, für jeweils GET und DELETE eine Funktion für alle Datensätze zu machen, sprich /deleteAll und /getAll sowie eine Funktion für einzelne Datensätze, sprich /delete/:ID und /get/:ID.</p>
+<p>Folgende Imports sind notwendig:</p>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\Imports.png" alt="Imports"></p>
+<hr>
+<h2 id="express">Express</h2>
+<p>Express ist dafür da, um schnell und einfach einen Webserver aufzusetzen. Im Prinzip muss man nur eine Express Applikation mittels des express() Befehls erzeugen und diese einer Variable zuordnen. Es ist ebenfalls wichtig, der Variable (In meinem Fall &quot;app&quot;), zu sagen, auf welchen Port die Applikation hören muss. Dies geschieht mit der .listen() Funktion.</p>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\Express.png" alt="Code für Express"></p>
+<p>In meinem Beispiel läuft der Server auf Port 5000 und es wird ebenfalls in der Konsole ausgegeben, auf welchen Port der Server Läuft.</p>
+<hr>
+<h2 id="mongoose">Mongoose</h2>
+<p>Mongoose ist das Modul, um mit einer Lokalen MongoDB Datenbank oder einer MongoDB Datenbank im Netz zu kommunizieren. In meinem Fall habe ich eine Lokale MongoDB Datenbank mittels des MongoDB Kompass aufgesetzt, inder meine Daten später gespeichert werden sollen. Mit mongoose.connect() können wir uns mit unserer Lokalen Datenbank Verbinden, in meinem Fall heißt meine DB &quot;gamedetails&quot;. Dort werden die generierten Objekte als Documents speichern. Als Addresse wird &quot;mongodb://127.0.0.1:27017/gamedetails&quot; benutzt, gamedetails ist der Name der Datenbank und die Addresse davor zeigt an, dass es eine Datenbank im Localhost ist.</p>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\MongoDB.png" alt="Code für Mongoose"></p>
+<p>Es ist notwendig, eine &quot;Model&quot; Datei für die Documents zu erstellen. Sie ist im Prinzip wie eine Klasse zu sehen, da sie vorschreibt, welche Daten benötigt werden um den Datensatz in die DB zu schreiben. Mein Model heißt &quot;gameModel.js&quot; und beinhaltet folgenden Code:</p>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\gameModel.png" alt="Code für Mongoose"></p>
+<p>In dieser Datei wird wieder &quot;mongoose&quot; benötigt, aber auch &quot;mongoose-sequence&quot;. Mongoose ist dafür da, um das erzeugte Model zu einem richtigen Schema zu machen, und Sequence ist ein extra Tool, um die eindeutige ID der MongoDB mit aufsteigenden Zahlen zu ersetzen. Mit const mySchema = new mongoose.Schema((...)) wird das Schema erstellt. Hierbei kann man beispielsweise den Typen festlegen, ob der Wert sein muss, ob er null sein kann, etc. Es wird ebenfalls der versionKey Wert auf false gesetzt, da es in diesem Fall ein unnötiger Eintrag ist.</p>
+<p>Myschema.plugin(...) ist für das vorher genannte Module Sequence. Diese Zeile ersetzt die _id mit einer sequenziellen Reihenfolge. Am Ende wird das Model noch als &quot;Game&quot; gestzt und wird zum Schluss noch mit module.exports exporiert.</p>
+<hr>
+<h2 id="body-parser">Body-Parser</h2>
+<p>Ist kurzgesagt nur dafür da, um die Daten die bei den Verschiedenen Anfragen im Body stehen zu lesen. Der Body-Parser wird nur einmal aufgerufen, um dem Express Server zu sagen, dass er ihn benutzen soll. Ebenfalls wird dem Server gesagt, dass er die &quot;routes.js&quot; benutzen soll, für alle Routen, die mit '/' beginnen.</p>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\Appuses.png" alt="Code für Mongoose"></p>
+<hr>
+<h2 id="routesjs">Routes.js</h2>
+<p>Diese Datei ist für die Routen der API verantworklich und kann in die vier verschiedenen Arten der Requests aufgeteilt werden. Folgende Imports werden benötigt:</p>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\ImportRoutes.png" alt="Code für Mongoose"></p>
+<p>Für alle Requests gilt das gleiche, alle sind asynchrone Methoden, was bedeutet, dass sie nicht blockierende Funktionen sind. Außerdem haben alle Methoden eine Request Variable und eine dazugehörende Response Variable. Sie werden mit app.[METHODE] aufgerufen, beispielsweise app.get(...), app.post(...), etc.</p>
+<hr>
+<h3 id="get-requests">Get Requests</h3>
+<p><img src="file:///c:\Users\DerAn\Documents\GitHub\MyGameList\Bilder\Gets.png" alt="Code für Mongoose"></p>
+<p>Im Methoden Aufruf wird am Anfang die Route festgelegt und im Anschluss eine asynchrone Lambda Funktion.</p>
+<p>Die Getall Methode versucht sich alle &quot;Game&quot; Objekte aus der Datenbank zu holen und speichert diese in ein Array. Im Anschluss werden alle Games als Response zurückgeschickt. Falls es einen Fehler gibt, wird durch Exception Handling der Fehler gefangen und es wird der Error als Response geschickt.</p>
+<p>Die Get/:ID Methode sucht nach der angegebenen ID in der Datenbank und versucht das Spiel mit de gewissen ID zu holen. Falls es dieses Spiel nicht finden kann, wird &quot;Not Found&quot; als Response geschickt. Falls es das Spiel finden kann wird das Spiel als Response geschickt. Falls etwas unerwartet Schief geht, wird durch Exception Handling &quot;Couldnt Get&quot; gesendet.</p>
+<hr>
+<h3 id="post-request">Post Request</h3>
+<h3 id="put-request">Put Request</h3>
+<h3 id="delete-requests">Delete Requests</h3>
+<h3 id="code">Code:</h3>
+<h2 id="client">Client</h2>
+<p>...</p>
+<h2 id="web-applikation">Web Applikation</h2>
+<p>...</p>
+
+        
+        
+    </body>
+    </html>

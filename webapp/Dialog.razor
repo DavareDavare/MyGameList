@@ -1,0 +1,79 @@
+﻿@using MudBlazor;
+@using System.Text;
+
+<MudDialog>
+    <DialogContent>
+        <MudTextField Label="Enter text" @bind-Value="@TextValue" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public string Items { get; set; }
+
+    private string TextValue { get; set; }
+    void Cancel() => MudDialog.Cancel();
+
+    private async void Submit()
+    {
+        HttpClient client = new HttpClient();
+        string _id = TextValue;
+        string[] idsToAdd = Items.Split(",");
+        List<int> gameids = new();
+        int num;
+
+        if (idsToAdd.Length > 1)
+        {
+            int n = 0;
+            foreach(string s in idsToAdd)
+            {
+                try
+                {
+                    gameids.Add(int.Parse(s));
+                }catch(ArgumentNullException)
+                {
+                    Console.WriteLine("Couldnt Parse");
+                }
+                n++;
+            }
+        }
+        else
+        {
+            try
+            {
+                gameids.Add(int.Parse(Items));
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("Couldnt Parse");
+            }
+        }
+
+        int[] ids = gameids.ToArray();
+
+        User user = new User(_id, ids);
+        string jsonstring = Newtonsoft.Json.JsonConvert.SerializeObject(user);
+        Console.WriteLine(jsonstring);
+
+        var response = await client.PostAsync("http://localhost:5001/add", new StringContent(jsonstring, Encoding.UTF8, "application/json"));
+
+        MudDialog.Close(DialogResult.Ok(true));
+        
+    }
+
+    public class User
+    {
+        public string _id { get; set; }
+        public int[] gameids { get; set; }
+
+        public User(string _id, int[] gameids )
+        {
+            this._id = _id;
+            this.gameids = gameids;
+        }
+    }
+}
