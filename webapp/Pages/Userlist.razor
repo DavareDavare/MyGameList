@@ -2,63 +2,76 @@
 @inject HttpClient client;
 @inject NavigationManager NavManager
 @inject IDialogService DialogService
-@if (gamesn == null)
+@using System.Linq;
+
+@if(usernameentered == false)
 {
-    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
-}else
+    <MudTextField Label="Enter Username" @bind-Value="@TextValue" />
+    <MudButton @onclick="getgames" Variant="Variant.Filled" Color="Color.Primary">Enter Username</MudButton>
+}
+@if(usernameentered == true)
 {
-    <MudTable Items="gamesn" Hover="true" SortLabel="Sort By" Elevation="0" T="Game">
-        <HeaderContent>
-            <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Game, object>(x=>x._id)">ID</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.gamename)">Name</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.developer)">Developer</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.publisher)">Publisher</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.console)">Konsole</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.description)">Beschreibung</MudTableSortLabel></MudTh>
-            <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.pegi)">PEGI</MudTableSortLabel></MudTh>
-            <MudTh>Bild</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            <MudTd DataLabel="ID">@context._id</MudTd>
-            <MudTd DataLabel="Gamename">@context.gamename</MudTd>
-            <MudTd DataLabel="Developer">@context.developer</MudTd>
-            <MudTd DataLabel="Publisher">@context.publisher</MudTd>
-            <MudTd DataLabel="Konsole">@context.console</MudTd>
-            <MudTd DataLabel="Beschreibung">@context.description</MudTd>
-            <MudTd DataLabel="PEGI">@context.pegi</MudTd>
-            <MudTd DataLabel="Image"><MudImage src="@context.imagelink" Height="150" Width="100">Bild</MudImage></MudTd>
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager PageSizeOptions="new int[]{10, 50, 100}" />
-        </PagerContent>
-    </MudTable>
+    if (games == null)
+    {
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    }
+    else
+    {
+        <MudTable Items="games" Hover="true" SortLabel="Sort By" Elevation="0" Sortable="true">
+            <HeaderContent>
+                <MudTh><MudTableSortLabel InitialDirection="SortDirection.Ascending" SortBy="new Func<Game, object>(x=>x._id)">ID</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.gamename)">Name</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.developer)">Developer</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.publisher)">Publisher</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.console)">Konsole</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.description)">Beschreibung</MudTableSortLabel></MudTh>
+                <MudTh><MudTableSortLabel SortBy="new Func<Game, object>(x=>x.pegi)">PEGI</MudTableSortLabel></MudTh>
+                <MudTh>Bild</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="ID">@context._id</MudTd>
+                <MudTd DataLabel="Gamename">@context.gamename</MudTd>
+                <MudTd DataLabel="Developer">@context.developer</MudTd>
+                <MudTd DataLabel="Publisher">@context.publisher</MudTd>
+                <MudTd DataLabel="Konsole">@context.console</MudTd>
+                <MudTd DataLabel="Beschreibung">@context.description</MudTd>
+                <MudTd DataLabel="PEGI">@context.pegi</MudTd>
+                <MudTd DataLabel="Image"><MudImage src="@context.imagelink" Height="150" Width="100">Bild</MudImage></MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager PageSizeOptions="new int[]{10, 50, 100}" />
+            </PagerContent>
+        </MudTable>
+    }
 }
 
 
+
 @code {
-    private Game[]? gamesn;
-    private int countGames;
-    private MudTable<Game> _table;
-    private MudText selectedText;
-    private HashSet<Game> selectedItems = new HashSet<Game>();
-    String _selectedItemText;
-    String Items = "Test";
-    private bool _selectOnRowClick = true;
+    private string TextValue { get; set; }
+    private bool usernameentered = false;
+    private List<Game> games = new();
+    private Game[]? gamesl;
+    private User user;
 
-    protected override async Task OnInitializedAsync()
-    {
-        OpenDialog();
-    }
 
-    private void OpenDialog()
-    {
-        var options = new DialogOptions { CloseOnEscapeKey = true };
-        DialogService.Show<Dialog>("Geben sie den Benutzernamen ein:", options);
-    }
 
-    private async void getGames()
+    private async void getgames()
     {
-        gamesn = await client.GetFromJsonAsync<Game[]>("http://localhost:5000/getall");
+        usernameentered = true;
+        user = await client.GetJsonAsync<User>("http://localhost:5001/get/" + TextValue);
+        int[] usergames = user.gameids;
+
+        foreach(int i in usergames)
+        {
+            string stringnumber = i.ToString();
+            Game response = await client.GetJsonAsync<Game>("http://localhost:5000/get/" + stringnumber);
+            games.Add(response);
+        }
+
+        gamesl = games.ToArray();
+
+        StateHasChanged();
     }
 
     public class Game
@@ -71,5 +84,11 @@
         public string description { get; set; }
         public int pegi { get; set; }
         public string imagelink { get; set; }
+    }
+
+    public class User
+    {
+        public string _id { get; set; }
+        public int[] gameids { get; set; }
     }
 }
