@@ -2,10 +2,16 @@
 ## Videospiel Datenbank mit Rest-API
 ## WPF Client um Einträge der Datenbank hinzuzufügen
 ## Webapplikation um Datenbank Einträge zu einer persönlichen Liste hinzuzufügen und diese für den User zu speichern
+
+---
+### Aufbau der Projektes veranschaulicht:
+
+![Imports](./Bilder/Diagramm.png) 
+
 ---
 
-## API
-Die API soll folgende Requests verarbeiten können:
+## Game API
+Die folgende API ist für die Videospiele und soll folgende Requests verarbeiten können:
  - Get
  - Post
  - Put
@@ -41,7 +47,7 @@ Es ist notwendig, eine "Model" Datei für die Documents zu erstellen. Sie ist im
 
 In dieser Datei wird wieder "mongoose" benötigt, aber auch "mongoose-sequence". Mongoose ist dafür da, um das erzeugte Model zu einem richtigen Schema zu machen, und Sequence ist ein extra Tool, um die eindeutige ID der MongoDB mit aufsteigenden Zahlen zu ersetzen. Mit const mySchema = new mongoose.Schema((...)) wird das Schema erstellt. Hierbei kann man beispielsweise den Typen festlegen, ob der Wert sein muss, ob er null sein kann, etc. Es wird ebenfalls der versionKey Wert auf false gesetzt, da es in diesem Fall ein unnötiger Eintrag ist.
 
-Myschema.plugin(...) ist für das vorher genannte Module Sequence. Diese Zeile ersetzt die _id mit einer sequenziellen Reihenfolge. Am Ende wird das Model noch als "Game" gestzt und wird zum Schluss noch mit module.exports exporiert.
+Myschema.plugin(...) ist für das vorher genannte Module Sequence. Diese Zeile ersetzt die _id mit einer sequenziellen Reihenfolge. Die Aufzählende Zahl, wird in einer Extra Collection namens "counters" gespeichert. Am Ende wird das Model noch als "Game" gestzt und wird zum Schluss noch mit module.exports exporiert.
 
 ---
 
@@ -61,11 +67,12 @@ Diese Datei ist für die Routen der API verantworklich und kann in die vier vers
 Für alle Requests gilt das gleiche, alle sind asynchrone Methoden, was bedeutet, dass sie nicht blockierende Funktionen sind. Außerdem haben alle Methoden eine Request Variable und eine dazugehörende Response Variable. Sie werden mit app.[METHODE] aufgerufen, beispielsweise app.get(...), app.post(...), etc.
 
 ---
+
 ### Get Requests
 
 ![Code für Mongoose](./Bilder/Gets.png)
 
-Im Methoden Aufruf wird am Anfang die Route festgelegt und im Anschluss eine asynchrone Lambda Funktion.
+Im Methoden Aufruf von allen Requests wird am Anfang die Route festgelegt und im Anschluss eine asynchrone Lambda Funktion geöffnet. Alle Requests sind ebenfalls in try-catch Blöcken umhüllt, um alle Möglichen Fehler zu fangen und damit einen Absturz der API zu gewährleisten.
 
 Die Getall Methode versucht sich alle "Game" Objekte aus der Datenbank zu holen und speichert diese in ein Array. Im Anschluss werden alle Games als Response zurückgeschickt. Falls es einen Fehler gibt, wird durch Exception Handling der Fehler gefangen und es wird der Error als Response geschickt.
 
@@ -80,14 +87,93 @@ Test GetID:
 ![Code für Mongoose](./Bilder/Getone.png)
 
 ---
+
 ### Post Request
+
+![Code für Mongoose](./Bilder/Post.png)
+
+Am Anfang werden die Daten, die verschickt wurden, in der Variable data gespeichert.
+
+Die Speicherung der Daten hat folgenden Grund: Sie werden für eine Abfrage auf potenziell bereits bestehende Spiele benutzt. Mit Game.exists({gamename: data.gamename, console:data.console}) wird überprüft, ob es ein bestimmtes Spiel schon auf einer bestimmten Konsole gibt. Diese Abfrage wurde eingebaut, da sich Spiele auf verschiedenen Konsolen unterscheiden können obwohl sie den selben Namen haben und im Endeffekt dasselbe Spiel sein sollte.
+
+Diese Abfrage prüft im Model "Game" ob es ein Spiel mit genau diesem Namen und dieser Konsole gibt. Falls es das Spiel schon bereits in der Datenbank gibt, wird in der Variable "docs" das Spiel gespeichert und als Response "Game already exists" geschickt.
+
+Wenn "docs" kein Spiel beinhaltet wird mit den Daten in "data" ein neues Spiel erzeugt und direkt in die Datenbank hinzugefügt.
+
+
+
+Test Post:
+
+![Code für Mongoose](./Bilder/Postone.png)
+
+Test Post wenn Spiel bereits in DB:
+
+![Code für Mongoose](./Bilder/PostAlrExists.png)
+
+---
 
 ### Put Request
 
+![ Code für Mongoose](./Bilder/Put.png)
+
+Für Put wird vom Request die ID und das danach gewollte Update gespeichert. In Update kann es sein dass mehrere verschiedene Daten stehen, wie z.B. Gamename und PEGI. Es muss sich aber nicht darum gekümmert werden, da die Methode findByIdAndUpdate damit arbeitet.
+
+Die genannte Funktion fordert eine ID die zum Updaten ist und das zu machende Update. Ebenfalls kann angegeben werden, ob dadurch ein neues Objekt erzeugt werden soll oder nicht. In diesem Fall wird ein neues Objekt erzeugt. und zwischengespeichert. Wenn das Game erfolgreicht überschrieben wurde, wird es als Response zurückgeschickt.
+
+Test Put:
+
+![ Code für Mongoose](./Bilder/Putone.png)
+
+---
+
 ### Delete Requests
 
+![ Code für Mongoose](./Bilder/Deletes.png)
 
-### Code:
+Delete hat wieder zwei verschiedene Anwendungen: "/delete/:ID" und "/deleteall".
+
+Für "delete/:id" is es notwendig, die ID mitzugben. Sie wird direkt am Anfang in eine Variable gespeichert. Mit ".findByIdAndDelete(id)" wird das Spiel direkt gelöscht und ein boolean zurückgegeben. 
+
+Wenn der boolean false ist wird als Response "Not Found" zurückgegeben. Wenn alles funktioniert hat, wird "Document Deleted" gesendet. 
+
+Bei "/deleteAll" ist es nur notwendig, die Adresse aufzurufen. durch ".deleteMany()" werden direkt alle Spiele gelöscht. Desweiteren ist es für die Zukunft nötig, dass die IDs wieder zurückgesetzt werden, da diese sonst weiterzählen würden. Dafür wird die extra erstellte Collection "counters" gelöscht.
+
+Test DeleteOne:
+
+![Code für Mongoose](./Bilder/deleteone.png)
+
+Test DeleteAll:
+
+![Code für Mongoose](./Bilder/deleteall.png)
+
+---
+
+### Restlicher Code des Servers :
+
+Desweiteren ist es notwendig sich um die CORS Policy zu kümmern. Diese ist dafür da, dass für Server eingeschränkt wird, wohin sie Daten weiterleiten können. Würde man sich nicht darum kümmern, könnte man keine Requests von den Clients verschicken ohne einen richtigen Fehler in der Entwicklung zu sehen. In diesem Beispiel wurde alles deaktiviert, da es in diesem Fall nicht wichtig ist.
+
+![Code für Mongoose](./Bilder/cors.png)
+
+Gesamter Code Server:
+
+![Code für Mongoose](./Bilder/Server.png)
+
+---
+
+## User API
+
+Diese API hat genau die gleiche Funktionalität wie die bereits beschriebene Game API, der einzige Unterschied liegt in der Art der Daten die gespeichert werden. Die Game API speicher Videospiele und die User API speicher die verschiedenen User. Deshalb wird abgesehen von dem Datenbank Modell die Funktionalität dieser API nicht näher beschrieben.
+
+---
+
+### MongoDB Model
+
+![Code für Mongoose](./Bilder/UserModel.png)
+
+Der Unterschied zum anderen Model ist, dass es andere Daten sind die gespeichert werden. Für User wird als ID der Name des Users gespeichert da der Nutzername eindeutig ist, außerdem ein Array an SpieleIDs die direkt auf die Spiele weisen. Beim Aufruf der SpieleIDs kann direkt durch die Game API per ID auf das jeweilige Spiel zugegriffen werden.  
+
+---
+
 
 
 ## Client

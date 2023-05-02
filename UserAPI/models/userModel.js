@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-//Vorlage wie die einzelnen "Games" in der Datenbank ausschauen sollen
+//Vorlage wie die einzelnen "User" in der Datenbank ausschauen sollen
 const mySchema = new mongoose.Schema({
   _id: { type: String, required: true },
   gameids: { type: [Number], required: true}

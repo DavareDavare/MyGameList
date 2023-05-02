@@ -1,9 +1,0 @@
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.csproj.AssemblyReference.cache
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.AssemblyInfoInputs.cache
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.AssemblyInfo.cs
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.csproj.CoreCompileInputs.cache
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.RazorAssemblyInfo.cache
-C:\Users\DerAn\Documents\GitHub\MyGameList\website\BlazorApp1\BlazorApp1\obj\Debug\net6.0\BlazorApp1.RazorAssemblyInfo.cs
