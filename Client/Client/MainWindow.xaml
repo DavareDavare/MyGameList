@@ -1,12 +1,12 @@
-﻿<Window x:Class="Client.MainWindow"
+﻿<Window x:Class="Client.MainWindow" Background="#313131"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
-    <Grid Margin="10">
+        Title="MyGameList Client" Height="720" Width="1280">
+    <Grid Margin="6,10,14,10" Background="#313131">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,105 +20,105 @@
 
         <!-- Rechts Oben -->
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="628,0,2,337" Grid.RowSpan="2">
-            <Label HorizontalAlignment="Center" FontSize="15">Methoden:</Label>
+            <Label Foreground="White" HorizontalAlignment="Center" FontSize="15">Methoden:</Label>
             <StackPanel Height="319">
-                <Button HorizontalAlignment="Center" x:Name="btnPOST" Content="POST Game" Width="400" Height="35" Margin="5" Click="btnPOST_Click"/>
-                <Button HorizontalAlignment="Center" x:Name="btnPUT" Content="PUT Game" Width="400" Height="35" Margin="5" Click="btnPUT_Click"/>
-                <Button HorizontalAlignment="Center" x:Name="btnGETID" Content="GET Game by ID" Width="400" Height="35" Margin="5" Click="btnGETID_Click"/>
-                <Button HorizontalAlignment="Center" x:Name="btnGETALL" Content="GET All Games" Width="400" Height="35" Margin="5" Click="btnGETALL_Click"/>
-                <Button HorizontalAlignment="Center" x:Name="btnDELETEID" Content="DELETE Game by ID" Width="400" Height="35" Margin="5" Click="btnDELETEID_Click"/>
-                <Button HorizontalAlignment="Center" x:Name="btnDELETEALL" Content="DELETE All Games" Width="400" Height="35" Margin="0,5,0,20" Click="btnDELETEALL_Click"/>
+                <Button Background="#414141" Foreground="White" HorizontalAlignment="Center" x:Name="btnPOST" Content="POST Game" Width="400" Height="35" Margin="5" Click="btnPOST_Click"/>
+                <Button Background="#414141" Foreground="White" HorizontalAlignment="Center" x:Name="btnPUT" Content="PUT Game" Width="400" Height="35" Margin="5" Click="btnPUT_Click"/>
+                <Button Background="#414141" Foreground="White" HorizontalAlignment="Center" x:Name="btnGETID" Content="GET Game by ID" Width="400" Height="35" Margin="5" Click="btnGETID_Click"/>
+                <Button Background="#414141" Foreground="White" HorizontalAlignment="Center" x:Name="btnGETALL" Content="GET All Games" Width="400" Height="35" Margin="5" Click="btnGETALL_Click"/>
+                <Button Background="#414141" Foreground="White" HorizontalAlignment="Center" x:Name="btnDELETEID" Content="DELETE Game by ID" Width="400" Height="35" Margin="5" Click="btnDELETEID_Click"/>
+                <Button Background="#414141" Foreground="White" HorizontalAlignment="Center" x:Name="btnDELETEALL" Content="DELETE All Games" Width="400" Height="35" Margin="0,5,0,20" Click="btnDELETEALL_Click"/>
             </StackPanel>
         </StackPanel>
         <!-- Add Game -->
         <StackPanel x:Name="gameadd" HorizontalAlignment="Center" Visibility="Visible">
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Gamename:</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtGamename"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Gamename:</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtGamename"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Developer:‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDeveloper"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Developer:‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDeveloper"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Publisher:ㅤ</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPublisher"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Publisher:ㅤ</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPublisher"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Console:‎ ‎ ‎ ‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtConsole"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Console:‎ ‎ ‎ ‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtConsole"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Description:</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDescription"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Description:</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDescription"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Pegi:‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPegi"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Pegi:‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPegi"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40">
-                <Label Margin="3" VerticalContentAlignment="Center">Image Link:‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtLink"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Image Link:‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtLink"></TextBox>
             </StackPanel>
-            <Button x:Name="btnAdd" Content="Add Game" Click="btnAdd_Click" Margin="0,10,0,0" Height="50" Visibility="Visible"/>
+            <Button Background="#414141" Foreground="White"  x:Name="btnAdd" Content="Add Game" Click="btnAdd_Click" Margin="0,10,0,0" Height="50" Visibility="Visible"/>
         </StackPanel>
         <!-- Put Game -->
         <StackPanel x:Name="gameput" HorizontalAlignment="Center" Visibility="Hidden">
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">ID:‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtIdPut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">ID:‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtIdPut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Gamename:</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtGamenamePut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Gamename:</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtGamenamePut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Developer:‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDeveloperPut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Developer:‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDeveloperPut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Publisher:ㅤ</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPublisherPut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Publisher:ㅤ</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPublisherPut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Console:‎ ‎ ‎ ‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtConsolePut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Console:‎ ‎ ‎ ‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtConsolePut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Description:</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtDescriptionPut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Description:</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3"  VerticalContentAlignment="Center" Width="300" x:Name="txtDescriptionPut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Pegi:‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPegiPut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Pegi:‎ ‎ ‎ ‎ ‎ ‎ ‎ ‎  ‎ ‎ ‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtPegiPut"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35">
-                <Label Margin="3" VerticalContentAlignment="Center">Image Link:‎ ‎</Label>
-                <TextBox Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtLinkPut"></TextBox>
+                <Label Foreground="White" Margin="3" VerticalContentAlignment="Center">Image Link:‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" Margin="3" VerticalContentAlignment="Center" Width="300" x:Name="txtLinkPut"></TextBox>
             </StackPanel>
-            <Button x:Name="btnPutGame" Content="PUT Game" Margin="0,5,0,0" Height="50" Visibility="Visible" Click="btnPutGame_Click"/>
+            <Button Background="#414141" Foreground="White" x:Name="btnPutGame" Content="PUT Game" Margin="0,5,0,0" Height="50" Visibility="Visible" Click="btnPutGame_Click"/>
         </StackPanel>
         <!-- Get All + Delete All -->
         <StackPanel x:Name="gameall" Visibility="Hidden" Grid.Row="0" Grid.Column="0">
             <StackPanel>
-                <Button x:Name="btnGetAllGames" Content="GET All Games" Margin="0,175,0,0" Height="50" Width="500" Visibility="Hidden" Click="btnGetAllGames_Click"/>
-                <Button x:Name="btnDeleteAllGames" Content="DELETE All Games" Margin="0,-50,0,0" Height="50" Width="500" Visibility="Hidden" Click="btnDeleteAllGames_Click"/>
+                <Button Background="#414141" Foreground="White" x:Name="btnGetAllGames" Content="GET All Games" Margin="0,175,0,0" Height="50" Width="500" Visibility="Hidden" Click="btnGetAllGames_Click"/>
+                <Button Background="#414141" Foreground="White" x:Name="btnDeleteAllGames" Content="DELETE All Games" Margin="0,-50,0,0" Height="50" Width="500" Visibility="Hidden" Click="btnDeleteAllGames_Click"/>
             </StackPanel>
         </StackPanel>
         <!-- Get Game by ID + Delete Game by ID-->
         <StackPanel x:Name="gamebyid" Visibility="Hidden">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Label Margin="0,160,0,0" VerticalContentAlignment="Center" FontSize="30">ID:‎ ‎ ‎</Label>
-                <TextBox VerticalContentAlignment="Center" Margin="0,160,0,0" Height="50" Width="300" x:Name="txtID"></TextBox>
+                <Label Foreground="White" Margin="0,160,0,0" VerticalContentAlignment="Center" FontSize="30">ID:‎ ‎ ‎</Label>
+                <TextBox Background="#525252" Foreground="White" VerticalContentAlignment="Center" Margin="0,160,0,0" Height="50" Width="300" x:Name="txtID"></TextBox>
             </StackPanel>
-            <Button x:Name="btnGetGameById" Margin="0,20,0,0" Content="GET Game by ID" Height="50" Width="500" Visibility="Hidden" Click="btnGetGameById_Click"/>
-            <Button x:Name="btnDeleteGameById" Margin="0,-50,0,0" Content="DELETE Game by ID" Height="50" Width="500" Visibility="Hidden" Click="btnDeleteGameById_Click"/>
+            <Button Background="#414141" Foreground="White" x:Name="btnGetGameById" Margin="0,20,0,0" Content="GET Game by ID" Height="50" Width="500" Visibility="Hidden" Click="btnGetGameById_Click"/>
+            <Button Background="#414141" Foreground="White" x:Name="btnDeleteGameById" Margin="0,-50,0,0" Content="DELETE Game by ID" Height="50" Width="500" Visibility="Hidden" Click="btnDeleteGameById_Click"/>
         </StackPanel>
         <!-- Response -->
         <StackPanel Grid.Row="1" Grid.Column="0" Height="500" Margin="0,0,0,10">
-            <Label>Response:</Label>
+            <Label Foreground="White">Response:</Label>
             <StackPanel Height="300">
-                <ListBox Grid.Row="1" x:Name="lstResponse" Height="250"/>
+                <ListBox Grid.Row="1" Background="#525252" Foreground="White" x:Name="lstResponse" Height="250" Margin="20"/>
             </StackPanel>
         </StackPanel>
 

@@ -57,7 +57,6 @@ namespace Client
         {
             lstResponse.Items.Clear();
             int id;
-            Trace.WriteLine(txtIdPut.Text.Length);
             if (txtIdPut.Text.Length != 0)
             {
                 id = Convert.ToInt32(txtIdPut.Text);
@@ -89,7 +88,6 @@ namespace Client
                 }
                 if (txtPegiPut.Text.Length != 0)
                 {
-                    Trace.WriteLine("Cancer");
                     int pegi = Convert.ToInt32(txtPegiPut.Text);
                     Trace.WriteLine(pegi);
                     json += "\"pegi\": " + pegi + ",";
@@ -99,6 +97,7 @@ namespace Client
                     string imagelink = txtLinkPut.Text;
                     json += "\"imagelink\": \"" + imagelink + "\",";
                 }
+
                 json = json.Remove(json.Length - 1);
                 json += "}";
                 Trace.WriteLine(json);
@@ -275,6 +274,16 @@ namespace Client
 
             this.gameall.Visibility = Visibility.Visible;
             this.btnGetAllGames.Visibility = Visibility.Visible;
+        }
+
+        private void btnLeft_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnRight_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

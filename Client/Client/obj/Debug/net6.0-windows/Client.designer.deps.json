@@ -6,6 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
+      "ILMerge/3.0.41": {},
       "Newtonsoft.Json/13.0.2": {
         "runtime": {
           "lib/net6.0/Newtonsoft.Json.dll": {
@@ -17,6 +18,13 @@
     }
   },
   "libraries": {
+    "ILMerge/3.0.41": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u9n45xs40bSGoNFcmMYJkh3zkGYKR4BqzQaX2uHc2Ay4drdiQOTeo/1ECps3ttDXOu4Q6qbTnsIbQWb/06ShqA==",
+      "path": "ilmerge/3.0.41",
+      "hashPath": "ilmerge.3.0.41.nupkg.sha512"
+    },
     "Newtonsoft.Json/13.0.2": {
       "type": "package",
       "serviceable": true,

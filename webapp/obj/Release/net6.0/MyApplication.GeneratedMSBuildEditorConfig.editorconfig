@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/Dialog.razor]
+build_metadata.AdditionalFiles.TargetPath = RGlhbG9nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -44,12 +48,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/Pages/Userlist.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlcmxpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/UserDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = VXNlckRpYWxvZy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DerAn/Documents/GitHub/MyGameList/webapp/_Imports.razor]

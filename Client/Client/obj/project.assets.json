@@ -2,6 +2,12 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
+      "ILMerge/3.0.41": {
+        "type": "package",
+        "build": {
+          "build/ILMerge.props": {}
+        }
+      },
       "Newtonsoft.Json/13.0.2": {
         "type": "package",
         "compile": {
@@ -18,6 +24,22 @@
     }
   },
   "libraries": {
+    "ILMerge/3.0.41": {
+      "sha512": "u9n45xs40bSGoNFcmMYJkh3zkGYKR4BqzQaX2uHc2Ay4drdiQOTeo/1ECps3ttDXOu4Q6qbTnsIbQWb/06ShqA==",
+      "type": "package",
+      "path": "ilmerge/3.0.41",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/ILMerge.props",
+        "docs/ilmerge-manual.md",
+        "ilmerge.3.0.41.nupkg.sha512",
+        "ilmerge.nuspec",
+        "tools/net452/ILMerge.exe",
+        "tools/net452/System.Compiler.dll"
+      ]
+    },
     "Newtonsoft.Json/13.0.2": {
       "sha512": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg==",
       "type": "package",
@@ -51,7 +73,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
-      "Newtonsoft.Json >= 13.0.2"
+      "Newtonsoft.Json >= 13.0.2",
+      "ilmerge >= 3.0.41"
     ]
   },
   "packageFolders": {
@@ -96,6 +119,10 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.2, )"
+          },
+          "ilmerge": {
+            "target": "Package",
+            "version": "[3.0.41, )"
           }
         },
         "imports": [
