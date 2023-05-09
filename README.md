@@ -268,7 +268,7 @@ UI Delete by ID:
 
 Am Anfang wird die ID in eine Variable gespeichert, welche für die URL da ist. Die URL wird direkt mit der angehängten ID gespeichert und mit DeleteAsync() mit der jeweiligen URL als Response gespeichert. Der Content des Responses wird ausgelesen und in das Response Textfeld geschrieben.
 
-![Code für DeleteID](./Bilder/WPFClientDeleteByIDCode.png)
+![Code für DeleteID](./Bilder/WPFClientDeletebyIDCode.png)
 
 ---
 
