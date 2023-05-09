@@ -37,10 +37,7 @@ else
     </MudTable>
     <MudText id="Selected" @ref="selectedText">Selected items (@selectedItems?.Count): @(selectedItems == null ? "" : Items = string.Join(",", selectedItems.OrderBy(x => x._id).Select(x => x._id)))</MudText>
 
-    <MudButton @onclick="addToOwnList">Add to List</MudButton>
-    <MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
-        Open Simple Dialog
-    </MudButton>
+    <MudButton @onclick="OpenDialog" Variant="Variant.Filled"  Color="Color.Primary">Add to List</MudButton>
 }
 
 @code {

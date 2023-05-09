@@ -282,4 +282,30 @@ Die URL wird als String gespeichert und mit DeleteAsync() mit der jeweiligen URL
 ![Code für DeleteAll](./Bilder/WPFClientDeleteAllCode.png)
 
 ## Web Applikation
-...
+
+Die Webapp wurde mit dem Mudblazor .net Framework erstellt. Mit Mudblazor ist es möglich eine Website durch veschiedenste Komponenten zu bauen. Funktionsweise funktioniert das Framework sehr ähnlich zu HTML, wobei man ganz einfach Code in seine Seite einbauen kann. Am Anfang jeder Seite in Blazor gibt man mit @page "..." die Route an, mit der man die Seite aufrufen kann.-- 
+
+Die Webapp für MyGameList besteht aus einer eigenen Modal Komponente sowie 3 Hauptseiten:
+- Home
+- GameList
+- UserList
+
+---
+
+## Home
+
+Die Home ist eine abgeänderte Version von der Startseite von dem Basic Mudblazor Projekt. Sie verlinkt auf das Github Repo dieses Projektes.
+
+![Homeseite](./Bilder/WebappHome.png)
+
+Die verschiedenen Tags werden wie in HTML mit Eckigen Klammern angesprochen. Hier werden MudTexts mit verschiedenen Größen erzeugt, sowie einem Alert. Ein Alert ist im Prinzip nur ein Text mit einer Hintergrund Farbe.
+
+![Homeseite Code](./Bilder/WebappHomeCode.png)
+
+---
+
+## GameList
+
+Die GameList soll alle in der Datenbank verfügbaren Spiele in einer schönen Liste anzeigen, welche der Spieler dann per Checkboxen und einem anschließenden bestätigenden Buttonclick zu seiner eigenen Liste hinzufügen kann. Die Spiele sind nach den verschiedenen Attributen sortierbar.
+
+![GameList](./Bilder/WebappGameList.png)
