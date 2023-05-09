@@ -6,7 +6,7 @@
 ---
 ### Aufbau des Projektes veranschaulicht:
 
-![Imports](./Bilder/Diagramm.png) 
+![Imports](./Bilder/diagramm.png) 
 
 ---
 
