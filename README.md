@@ -330,10 +330,29 @@ Das Modal ist dazu da, eine visuell gutaussehende Eingabe des Benutzernamens zu 
 
 ![Modal](./Bilder/WebappModal.png)
 
-Es wird ein Simpler Sialog erstellt mit einem Textfeld als Body und den Buttons Cancel um die Eingabe abzubrechen und OK um den Benutzernamen einzugeben.
+Es wird ein Simpler Dialog erstellt mit einem Textfeld als Body und den Buttons Cancel um die Eingabe abzubrechen und OK um den Benutzernamen einzugeben.
 
 ![Design Modal](./Bilder/WebappDesignModal.png)
 
-Die Methode "Cancel" schließt das Modal. Submit ist eine Async Methode da sie einen Request an die API schickt. Unter "_id" wird hier der Nutzername gespeichert da dieser in der Datenbank als Primary Key dient. Die zu speichernden GameIDs werden mit der Methode .Split(",") am Beistrich geteilt und in ein Array gespeichert. 
+Die Methode "Cancel" schließt das Modal. Submit ist eine Async Methode da sie einen Request an die API schickt. Unter "_id" wird hier der Nutzername gespeichert da dieser in der Datenbank als Primary Key dient. Die zu speichernden GameIDs als Stringl werden mit der Methode .Split(",") am Beistrich geteilt und in ein Array gespeichert. Dieses Array wird durchgegangen und es wird in einem Try-Catch Block probiert, die ID von einem String in einen Integer zu parsen. Wenn dies funktioniert werden die IDs zu einem Integer Array hinzugefügt welche dann mit dem Username in der Datenbank gespeichert werden. Der User wird dann durch das Newtonsoft Nuget zu einem jsonstring umgewandelt um ihn dann direkt über die UserAPI in der Datenbank zu speichern.
 
 ![Funktionalität Modal](./Bilder/WebappModalCode.png)
+
+---
+
+## Userlist
+
+Durch Zeitdruck ist es zu dieser Art der Userlisten gekommen. Geplant wäre ein Login mit Username und Passwort aber jetzt ist es eine Speicherung nur mit dem Nutzernamen. So ist für jeden möglich ohne ein Passwort für jeden Nutzer Daten zu speichern.
+
+Wenn der Nutzername eingegeben wird, werden von der User Datenbank die GameIds geladen mit welchen es dann möglich ist die Spiele darzustellen. Die IDs werden durchgegangen und mit einem weiteren API Get Request per ID der GameAPI abgerufen. Die Spiele werden dann auch wieder mit einer Tabelle von der [MudBlazor Dokumentation](https://mudblazor.com/components/table) angezeigt. 
+
+![Userlist](./Bilder/WebappUserlist1.png)
+![Userlist](./Bilder/WebappUserlist2.png)
+
+Die Eingabe des Usernamen verschwindet erst, wenn einer eingegeben wird. Durch einen einfachen Buttonclick führt man eine Funktion aus die mit dem eingegebenen Nutzernamen die Spiele aus der Datenbank holt. Wenn der Name dann eingegeben ist, wird noch einmal abgefragt, ob die Spiele die man bekommt null sind, also ob es Spiele gibt. Wenn es keine gibt wird der Ladekreis angezeigt. Dies passiert wenn beispielsweise die API nicht läuft und trotzdem auf sie zugegriffen wird. Wenn es die Spiele gibt wird die Tabelle angezeigt. 
+
+![Design UserList](./Bilder/WebappUserlistDesign.png)
+
+Die aufgerufene Funktion holt sich am Anfang den User aus der Datenbank durch den Aufruf GetJsonAsync() mit dem jeweiligen User wird der Datenbank Eintrag direkt als ein Objekt der Klasse User gespeichert und es kann auf die Eigenschaften der Klasse zugegriffen werden. Es wird mit einer Foreach Schleife durch alle IDs des GameID Arrays iteriert und es wird auf die GameAPI mit der jeweiligen ID zugegriffen. Das Spiel das man zurückbekommt wird dass direkt in die Games Liste hinzugefügt. Wenn alle Spiele durchlaufen worden sind wird die Liste in ein Array umgewandelt, welches von der oben erzeugten Tabelle dann angezeigt wird. Zum Abschluss wird noch einmal die Funktion "StateHasChanged()" aufgerufen. Dieser Aufruf ist notwendig, da sonst die Tabelle nicht aktualisiert wird. Mit der Funktion sagt man der App, dass sich etwas verändert hat und dass sich die Seite bitte reloaden soll.
+
+![Funktionalität UserList](./Bilder/WebappUserlistCode.png)
