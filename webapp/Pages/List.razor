@@ -55,12 +55,6 @@ else
         gamesn = await client.GetFromJsonAsync<Game[]>("http://localhost:5000/getall");
     }
 
-    public void addToOwnList()
-    {
-        Console.WriteLine(Items);
-
-    }
-
     private void OpenDialog()
     {
         var options = new DialogOptions { CloseOnEscapeKey = true };

@@ -26,9 +26,6 @@
         List<int> gameids = new();
         int num;
 
-        if (idsToAdd.Length > 1)
-        {
-            int n = 0;
             foreach(string s in idsToAdd)
             {
                 try
@@ -38,20 +35,7 @@
                 {
                     Console.WriteLine("Couldnt Parse");
                 }
-                n++;
             }
-        }
-        else
-        {
-            try
-            {
-                gameids.Add(int.Parse(Items));
-            }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("Couldnt Parse");
-            }
-        }
 
         int[] ids = gameids.ToArray();
 

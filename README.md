@@ -309,3 +309,31 @@ Die verschiedenen Tags werden wie in HTML mit Eckigen Klammern angesprochen. Hie
 Die GameList soll alle in der Datenbank verfügbaren Spiele in einer schönen Liste anzeigen, welche der Spieler dann per Checkboxen und einem anschließenden bestätigenden Buttonclick zu seiner eigenen Liste hinzufügen kann. Die Spiele sind nach den verschiedenen Attributen sortierbar.
 
 ![GameList](./Bilder/WebappGameList.png)
+
+Der Code für die Multiselection Tabelle ist direkt von der offiziellen [MudBlazor Dokumentation](https://mudblazor.com/components/table) genommen und für die Anwendung überarbeitet. Es wurden die Werte welche angezeigt werden sollen abgeändert und es wurde ein Image hinzugefügt, um das Cover des Spieles anzuzeigen.
+
+Liste:
+![GameList Code](./Bilder/WebappGamelistCode.png)
+
+Wenn die GameList Seite aufgerufen wird, sieht man erst einmal ein Zeichen, dass die Seite gerade Daten lädt. Durch "OnInitializedAsync()" kann man Code festlegen, der direkt beim Aufruf der Seite geladen wird. In diesem Fall ist dies der Request zur Game API der alle Spiele holt, die es in der Datenbank gibt. Sie werden in ein Game Array hineingelesen. Dadurch dass bei der Tabelle als "Items" das Array angegeben wurde, wird die Tabelle automatisch mit den ganzen Spielen angezeigt, wenn alle Spiele empfangen wurden.
+
+Wenn man mit durch die Checkboxen Spiele auswählt, werden in der "_selectedItemText" Variable die IDs der Spiele Kommaseperiert aneinander gehängt. Wenn der Button gedrückt wird öffnet sich ein neues Dialogfenster mit einem Textfeld um den Benutzernamen einzugeben, auf welchem die Spiele gespeichert werden sollen. Ihm werden die Items übergeben, da die Items in der Modal Komponente benötigt werden um mit ihnen einen neuen Datenbank Eintrag zu erstellen.
+
+Funktionalität:
+![GameList Code](./Bilder/WebappGamelistCode2.png)
+
+---
+
+## Modal Component
+
+Das Modal ist dazu da, eine visuell gutaussehende Eingabe des Benutzernamens zu ermöglichen, ohne Extra ein Feld auf der allgemeinen Seite erstellen zu müssen.
+
+![Modal](./Bilder/WebappModal.png)
+
+Es wird ein Simpler Sialog erstellt mit einem Textfeld als Body und den Buttons Cancel um die Eingabe abzubrechen und OK um den Benutzernamen einzugeben.
+
+![Design Modal](./Bilder/WebappDesignModal.png)
+
+Die Methode "Cancel" schließt das Modal. Submit ist eine Async Methode da sie einen Request an die API schickt. Unter "_id" wird hier der Nutzername gespeichert da dieser in der Datenbank als Primary Key dient. Die zu speichernden GameIDs werden mit der Methode .Split(",") am Beistrich geteilt und in ein Array gespeichert. 
+
+![Funktionalität Modal](./Bilder/WebappModalCode.png)
