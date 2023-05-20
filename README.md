@@ -18,7 +18,9 @@ Als erstes wird die .zip Datei entpackt und man erhält folgende Dateien:
 Um das Projekt zu starten ist es notwendig, die "startAPIs.bat" Datei auszuführen um die benötigten APIs zu starten. Ohne diese werden die Clients nicht funtkionieren.
 
 Um die zwei Clients auszuführen eine neuere Version von .net notwendig.
+
 Um den Client zu benutzen muss man die "startClient.bat" Datei ausführen. 
+
 Um die Webapp zu starten muss man die "startWebapp.bat" Datei ausführen.
 
 # Dokumentation
