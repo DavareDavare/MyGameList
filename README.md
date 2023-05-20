@@ -15,17 +15,11 @@
 Als erstes wird die .zip Datei entpackt und man erhält folgende Dateien:
 ![Imports](./Bilder/Ordner.png) 
 
-Um das Projekt zu starten ist es notwendig, die "startAPIs.bat" Datei auszuführen um die benötigten APIs zu starten.
+Um das Projekt zu starten ist es notwendig, die "startAPIs.bat" Datei auszuführen um die benötigten APIs zu starten. Ohne diese werden die Clients nicht funtkionieren.
 
-Um den Client zu benutzen muss man die "startClient.bat" Datei ausführen.
-
-Um die Webapp auszuführen ist Visual Studio notwendig. Man geht in den Ordner "webapp" und führt dort die Datei "MyApplication.sln" aus. Damit öffnet man das Mudblazor Projekt und kann es von dort aus starten.
-
-![Imports](./Bilder/webappordner.png) 
-
-Um nun die Webapp zu starten, muss man oben in der Leiste auf "IIS Express" drücken.
-
-![Imports](./Bilder/startwebapp.png) 
+Um die zwei Clients auszuführen eine neuere Version von .net notwendig.
+Um den Client zu benutzen muss man die "startClient.bat" Datei ausführen. 
+Um die Webapp zu starten muss man die "startWebapp.bat" Datei ausführen.
 
 # Dokumentation
 ## Game API
