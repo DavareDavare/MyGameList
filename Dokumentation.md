@@ -6,20 +6,25 @@
 ---
 ### Aufbau des Projektes veranschaulicht:
 
-![Imports](./Bilder/Diagramm.png) 
+![Imports](./Bilder/diagramm.png) 
 
 ---
 
 ## How to start:
 
+Das Projekt erfordert den [MongoDB Server](https://www.mongodb.com/try/download/community) um zu funktionieren, ohne diesen funktioniert es nicht.
+
 Als erstes wird die .zip Datei entpackt und man erhält folgende Dateien:
 ![Imports](./Bilder/Ordner.png) 
 
-Um das Projekt zu starten ist es notwendig, die "startAPIs.bat" Datei auszuführen um die benötigten APIs zu starten.
+Um das Projekt zu starten ist es notwendig, die "startAPIs.bat" Datei auszuführen um die benötigten APIs zu starten. Ohne diese werden die Clients nicht funtkionieren.
 
-Um den Client zu benutzen muss man die "startClient.bat" Datei ausführen.
+Um die zwei Clients auszuführen eine neuere Version von .net notwendig.
+Um den Client zu benutzen muss man die "startClient.bat" Datei ausführen. 
+Um die Webapp zu starten muss man die "startWebapp.bat" Datei ausführen.
 
-Um die Webapp auszuführen ist Visual Studio notwendig. Man geht in den Ordner "webapp" und führt dort die Datei "MyApplication.sln" aus. Damit öffnet man das Mudblazor Projekt und kann es von dort aus starten.
+ 
+
 
 ![Imports](./Bilder/webappordner.png) 
 
@@ -268,7 +273,7 @@ UI Delete by ID:
 
 Am Anfang wird die ID in eine Variable gespeichert, welche für die URL da ist. Die URL wird direkt mit der angehängten ID gespeichert und mit DeleteAsync() mit der jeweiligen URL als Response gespeichert. Der Content des Responses wird ausgelesen und in das Response Textfeld geschrieben.
 
-![Code für DeleteID](./Bilder/WPFClientDeleteByIDCode.png)
+![Code für DeleteID](./Bilder/WPFClientDeletebyIDCode.png)
 
 ---
 
@@ -282,4 +287,77 @@ Die URL wird als String gespeichert und mit DeleteAsync() mit der jeweiligen URL
 ![Code für DeleteAll](./Bilder/WPFClientDeleteAllCode.png)
 
 ## Web Applikation
-...
+
+Die Webapp wurde mit dem Mudblazor .net Framework erstellt. Mit Mudblazor ist es möglich eine Website durch veschiedenste Komponenten zu bauen. Funktionsweise funktioniert das Framework sehr ähnlich zu HTML, wobei man ganz einfach Code in seine Seite einbauen kann. Am Anfang jeder Seite in Blazor gibt man mit @page "..." die Route an, mit der man die Seite aufrufen kann.-- 
+
+Die Webapp für MyGameList besteht aus einer eigenen Modal Komponente sowie 3 Hauptseiten:
+- Home
+- GameList
+- UserList
+
+---
+
+## Home
+
+Die Home ist eine abgeänderte Version von der Startseite von dem Basic Mudblazor Projekt. Sie verlinkt auf das Github Repo dieses Projektes.
+
+![Homeseite](./Bilder/WebappHome.png)
+
+Die verschiedenen Tags werden wie in HTML mit Eckigen Klammern angesprochen. Hier werden MudTexts mit verschiedenen Größen erzeugt, sowie einem Alert. Ein Alert ist im Prinzip nur ein Text mit einer Hintergrund Farbe.
+
+![Homeseite Code](./Bilder/WebappHomeCode.png)
+
+---
+
+## GameList
+
+Die GameList soll alle in der Datenbank verfügbaren Spiele in einer schönen Liste anzeigen, welche der Spieler dann per Checkboxen und einem anschließenden bestätigenden Buttonclick zu seiner eigenen Liste hinzufügen kann. Die Spiele sind nach den verschiedenen Attributen sortierbar.
+
+![GameList](./Bilder/WebappGameList.png)
+
+Der Code für die Multiselection Tabelle ist direkt von der offiziellen [MudBlazor Dokumentation](https://mudblazor.com/components/table) genommen und für die Anwendung überarbeitet. Es wurden die Werte welche angezeigt werden sollen abgeändert und es wurde ein Image hinzugefügt, um das Cover des Spieles anzuzeigen.
+
+Liste:
+![GameList Code](./Bilder/WebappGamelistCode.png)
+
+Wenn die GameList Seite aufgerufen wird, sieht man erst einmal ein Zeichen, dass die Seite gerade Daten lädt. Durch "OnInitializedAsync()" kann man Code festlegen, der direkt beim Aufruf der Seite geladen wird. In diesem Fall ist dies der Request zur Game API der alle Spiele holt, die es in der Datenbank gibt. Sie werden in ein Game Array hineingelesen. Dadurch dass bei der Tabelle als "Items" das Array angegeben wurde, wird die Tabelle automatisch mit den ganzen Spielen angezeigt, wenn alle Spiele empfangen wurden.
+
+Wenn man mit durch die Checkboxen Spiele auswählt, werden in der "_selectedItemText" Variable die IDs der Spiele Kommaseperiert aneinander gehängt. Wenn der Button gedrückt wird öffnet sich ein neues Dialogfenster mit einem Textfeld um den Benutzernamen einzugeben, auf welchem die Spiele gespeichert werden sollen. Ihm werden die Items übergeben, da die Items in der Modal Komponente benötigt werden um mit ihnen einen neuen Datenbank Eintrag zu erstellen.
+
+Funktionalität:
+![GameList Code](./Bilder/WebappGamelistCode2.png)
+
+---
+
+## Modal Component
+
+Das Modal ist dazu da, eine visuell gutaussehende Eingabe des Benutzernamens zu ermöglichen, ohne Extra ein Feld auf der allgemeinen Seite erstellen zu müssen.
+
+![Modal](./Bilder/WebappModal.png)
+
+Es wird ein Simpler Dialog erstellt mit einem Textfeld als Body und den Buttons Cancel um die Eingabe abzubrechen und OK um den Benutzernamen einzugeben.
+
+![Design Modal](./Bilder/WebappDesignModal.png)
+
+Die Methode "Cancel" schließt das Modal. Submit ist eine Async Methode da sie einen Request an die API schickt. Unter "_id" wird hier der Nutzername gespeichert da dieser in der Datenbank als Primary Key dient. Die zu speichernden GameIDs als Stringl werden mit der Methode .Split(",") am Beistrich geteilt und in ein Array gespeichert. Dieses Array wird durchgegangen und es wird in einem Try-Catch Block probiert, die ID von einem String in einen Integer zu parsen. Wenn dies funktioniert werden die IDs zu einem Integer Array hinzugefügt welche dann mit dem Username in der Datenbank gespeichert werden. Der User wird dann durch das Newtonsoft Nuget zu einem jsonstring umgewandelt um ihn dann direkt über die UserAPI in der Datenbank zu speichern.
+
+![Funktionalität Modal](./Bilder/WebappModalCode.png)
+
+---
+
+## Userlist
+
+Durch Zeitdruck ist es zu dieser Art der Userlisten gekommen. Geplant wäre ein Login mit Username und Passwort aber jetzt ist es eine Speicherung nur mit dem Nutzernamen. So ist für jeden möglich ohne ein Passwort für jeden Nutzer Daten zu speichern.
+
+Wenn der Nutzername eingegeben wird, werden von der User Datenbank die GameIds geladen mit welchen es dann möglich ist die Spiele darzustellen. Die IDs werden durchgegangen und mit einem weiteren API Get Request per ID der GameAPI abgerufen. Die Spiele werden dann auch wieder mit einer Tabelle von der [MudBlazor Dokumentation](https://mudblazor.com/components/table) angezeigt. 
+
+![Userlist](./Bilder/WebappUserlist1.png)
+![Userlist](./Bilder/WebappUserlist2.png)
+
+Die Eingabe des Usernamen verschwindet erst, wenn einer eingegeben wird. Durch einen einfachen Buttonclick führt man eine Funktion aus die mit dem eingegebenen Nutzernamen die Spiele aus der Datenbank holt. Wenn der Name dann eingegeben ist, wird noch einmal abgefragt, ob die Spiele die man bekommt null sind, also ob es Spiele gibt. Wenn es keine gibt wird der Ladekreis angezeigt. Dies passiert wenn beispielsweise die API nicht läuft und trotzdem auf sie zugegriffen wird. Wenn es die Spiele gibt wird die Tabelle angezeigt. 
+
+![Design UserList](./Bilder/WebappUserlistDesign.png)
+
+Die aufgerufene Funktion holt sich am Anfang den User aus der Datenbank durch den Aufruf GetJsonAsync() mit dem jeweiligen User wird der Datenbank Eintrag direkt als ein Objekt der Klasse User gespeichert und es kann auf die Eigenschaften der Klasse zugegriffen werden. Es wird mit einer Foreach Schleife durch alle IDs des GameID Arrays iteriert und es wird auf die GameAPI mit der jeweiligen ID zugegriffen. Das Spiel das man zurückbekommt wird dass direkt in die Games Liste hinzugefügt. Wenn alle Spiele durchlaufen worden sind wird die Liste in ein Array umgewandelt, welches von der oben erzeugten Tabelle dann angezeigt wird. Zum Abschluss wird noch einmal die Funktion "StateHasChanged()" aufgerufen. Dieser Aufruf ist notwendig, da sonst die Tabelle nicht aktualisiert wird. Mit der Funktion sagt man der App, dass sich etwas verändert hat und dass sich die Seite bitte reloaden soll.
+
+![Funktionalität UserList](./Bilder/WebappUserlistCode.png)
