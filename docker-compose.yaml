@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  gameapi:
+    build:
+      context: ./GameAPI
+      dockerfile: Dockerfile
+    ports:
+      - "7000:7000"
+    networks:
+      - my_network
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/gamedetails
+    depends_on:
+      - mongodb
+  
+  userapi:
+    build:
+      context: ./UserAPI
+      dockerfile: Dockerfile
+    ports:
+      - "7001:7001"
+    networks:
+      - my_network
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/userdetails
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    networks:
+      - my_network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+
+networks:
+  my_network:
+    driver: bridge
+
