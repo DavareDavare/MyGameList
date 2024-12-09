@@ -6,7 +6,7 @@ services:
       context: ./GameAPI
       dockerfile: Dockerfile
     ports:
-      - "7000:7000"
+      - "5000:5000"
     networks:
       - my_network
     environment:
@@ -19,7 +19,7 @@ services:
       context: ./UserAPI
       dockerfile: Dockerfile
     ports:
-      - "7001:7001"
+      - "5001:5001"
     networks:
       - my_network
     environment:
