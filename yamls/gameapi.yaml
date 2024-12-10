@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gameapi
+  namespace: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gameapi
+  template:
+    metadata:
+      labels:
+        app: gameapi
+    spec:
+      containers:
+      - name: gameapi
+        image: docker.io/library/gameapi:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGO_URI
+          value: "mongodb://root:password@mongodb.my-app.svc.cluster.local:27017/gamedetails?authSource=admin"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gameapi
+  namespace: my-app
+spec:
+  type: NodePort
+  selector:
+    app: gameapi
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30333
