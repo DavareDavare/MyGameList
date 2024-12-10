@@ -6,11 +6,11 @@ services:
       context: ./GameAPI
       dockerfile: Dockerfile
     ports:
-      - "7000:7000"
+      - "5000:5000"
     networks:
       - my_network
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/gamedetails
+      - MONGO_URI=mongodb://root:password@mongodb:27017/gamedetails?authSource=admin
     depends_on:
       - mongodb
   
@@ -19,11 +19,11 @@ services:
       context: ./UserAPI
       dockerfile: Dockerfile
     ports:
-      - "7001:7001"
+      - "5001:5001"
     networks:
       - my_network
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/userdetails
+      - MONGO_URI=mongodb://root:password@mongodb:27017/userdetails?authSource=admin
     depends_on:
       - mongodb
 
