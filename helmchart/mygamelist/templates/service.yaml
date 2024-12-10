@@ -1,0 +1,31 @@
+{{- range .Values.apps }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  type: NodePort
+  selector:
+    app: {{ .name }}
+  ports:
+    - protocol: TCP
+      port: {{ .containerPort }}
+      targetPort: {{ .containerPort }}
+      nodePort: {{ .nodePort }}
+---
+{{- end }}
+
+# MongoDB Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: {{ .Values.mongodb.containerPort }}
+      targetPort: {{ .Values.mongodb.containerPort }}

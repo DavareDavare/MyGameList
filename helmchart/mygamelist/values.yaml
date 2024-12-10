@@ -1,0 +1,25 @@
+namespace: my-app
+
+apps:
+  - name: gameapi
+    image: "docker.io/library/gameapi:latest"
+    containerPort: 5000
+    mongoUri: "mongodb://root:password@mongodb.my-app.svc.cluster.local:27017/gamedetails?authSource=admin"
+    nodePort: 30333
+
+  - name: userapi
+    image: "docker.io/library/userapi:latest"
+    containerPort: 5001
+    mongoUri: "mongodb://root:password@mongodb.my-app.svc.cluster.local:27017/userdetails?authSource=admin"
+    nodePort: 30334
+
+mongodb:
+  image: "mongo:4.4"
+  containerPort: 27017
+  dbPath: "/data/db"
+  username: root
+  password: password
+
+persistentVolume:
+  size: "1Gi"
+  storageClassName: "manual"
